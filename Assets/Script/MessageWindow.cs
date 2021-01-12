@@ -49,15 +49,17 @@ public class MessageWindow : MonoBehaviour
                 if (1 < m_talkIndex)
                 {
                     m_characterIndex = 1;
+                    CharacterChange(m_characterImage, m_characterSprite[m_characterIndex], false);
                 }
             }
             else
             {
                 m_talkIndex = 0;
                 m_characterIndex = 0;
+                CharacterChange(m_characterImage, m_characterSprite[m_characterIndex], true);
             }
 
-            CharacterChange(m_characterImage, m_characterSprite[m_characterIndex]);
+            
             m_startCor = StartCoroutine(Write(m_testMessage[m_talkIndex]));
         }
         else
@@ -67,30 +69,38 @@ public class MessageWindow : MonoBehaviour
         }
     }
 
-    void CharacterChange(Image image, Sprite sprite)
+    void CharacterChange(Image image, Sprite sprite,bool fader)
     {
         Debug.Log(m_characterCor);
         if (m_charaCor == null)
         {
-           m_charaCor =StartCoroutine(CharacterFade(image, sprite));
+           m_charaCor =StartCoroutine(CharacterFade(image, sprite,fader));
             m_characterCor = false;
         }
     }
 
-    IEnumerator CharacterFade(Image image, Sprite sprite)
+    IEnumerator CharacterFade(Image image, Sprite sprite,bool fader)
     {
-        Debug.Log("characterFade");
-        for (byte i = 255; 0 < i; i--)
+        if (fader)
         {
-            image.color = new Color32(i, i, i, i);
-            yield return null;
+            Debug.Log("characterFade");
+            for (byte i = 255; 0 < i; i--)
+            {
+                image.color = new Color32(i, i, i, i);
+                yield return null;
+            }
+            image.sprite = sprite;
+            for (byte i = 0; i < 255; i++)
+            {
+                image.color = new Color32(i, i, i, i);
+                yield return null;
+            }
         }
-        image.sprite = sprite;
-        for (byte i = 0; i < 255; i++)
+        else
         {
-            image.color = new Color32(i, i, i, i);
-            yield return null;
+            image.sprite = sprite;
         }
+        
         m_characterCor = true;
         m_charaCor = null;
     }

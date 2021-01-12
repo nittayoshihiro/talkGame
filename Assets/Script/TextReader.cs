@@ -49,7 +49,7 @@ public class TextReader : MonoBehaviour
         {
             //背景変更コマンド　背景を変更
             case"back":
-                //コマンド例/back/1/true/アイウエオ
+                //コマンド例/back/1(バックグランドの配列番号)/true/アイウエオ
                 BackgroundChange(m_spritesBackground[int.Parse(strArr[1])],bool.Parse(strArr[2]));
                 if (2<strArr.Length)
                 {
@@ -58,7 +58,7 @@ public class TextReader : MonoBehaviour
                 break;
             //キャラクターコマンド  キャラクターと名前を変更
             case"character":
-                //コマンド例/character/1/2/ture/カキクケコ
+                //コマンド例/character/1(キャラクター配列番号)/2(キャラクターポジション)/ture/カキクケコ
                 CharacterChange(m_spritesCharacter[int.Parse(strArr[1])],int.Parse(strArr[2]),bool.Parse(strArr[3]));
                 if (2 < strArr.Length)
                 {
