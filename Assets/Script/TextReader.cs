@@ -44,31 +44,49 @@ public class TextReader : MonoBehaviour
     /// <param name="comText"></param>
     public void ComAnalysis(string[] comStr,int comIndex)
     {
-        string[] strArr =comStr[comIndex].Split('/');
-        switch (strArr[0])
+        if (m_nowCor == null)
         {
-            //背景変更コマンド　背景を変更
-            case"back":
-                //コマンド例/back/1(バックグランドの配列番号)/true/アイウエオ
-                BackgroundChange(m_spritesBackground[int.Parse(strArr[1])],bool.Parse(strArr[2]));
-                if (2<strArr.Length)
+            m_skip = false;
+            if (comStr[comIndex].Contains("/"))
+            {
+                string[] strArr = comStr[comIndex].Split('/');
+                switch (strArr[0])
                 {
-                    TextChange(strArr[3]);
+                    //背景変更コマンド　背景を変更
+                    case "back":
+                        //コマンド例:back/1(バックグランドの配列番号)/true/アイウエオ
+                        BackgroundChange(m_spritesBackground[int.Parse(strArr[1])], bool.Parse(strArr[2]));
+                        if (2 < strArr.Length - 1)
+                        {
+                            m_nowCor = StartCoroutine(TextChange(strArr[3]));
+                        }
+                        break;
+                    //キャラクターコマンド  キャラクターと名前を変更
+                    case "character":
+                        //コマンド例:character/1(キャラクター配列番号)/2(キャラクターポジション)/ture/カキクケコ
+                        CharacterChange(m_spritesCharacter[int.Parse(strArr[1])], int.Parse(strArr[2]), bool.Parse(strArr[3]));
+                        if (3 < strArr.Length - 1)
+                        {
+                            Debug.Log("TextC");
+                            m_nowCor = StartCoroutine(TextChange(strArr[4]));
+                        }
+                        break;
+                    default:
+                        Debug.Log("変換できませんでした");
+                        break;
                 }
-                break;
-            //キャラクターコマンド  キャラクターと名前を変更
-            case"character":
-                //コマンド例/character/1(キャラクター配列番号)/2(キャラクターポジション)/ture/カキクケコ
-                CharacterChange(m_spritesCharacter[int.Parse(strArr[1])],int.Parse(strArr[2]),bool.Parse(strArr[3]));
-                if (2 < strArr.Length)
-                {
-                    TextChange(strArr[3]);
-                }
-                break;
-            default:
-                TextChange(strArr[0]);
-                break;
+            }
+            else
+            {
+                m_nowCor = StartCoroutine(TextChange(comStr[comIndex]));
+            }
         }
+        else
+        {
+            m_skip = true;
+        }
+        
+        
     }
 
     //キャラクタースプライト変更
@@ -103,19 +121,26 @@ public class TextReader : MonoBehaviour
         while (0 < color.a)
         {
             color.a--;
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
+        Debug.Log(color.a);
         image.sprite = sprite;
         while (color.a < 255)
         {
             color.a++;
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public bool CorNow
+    {
+        get{ return m_skip; }
     }
 
     //テキストの変更
     IEnumerator TextChange(string message)
     {
+        Debug.Log("TextChage");
         m_messageText.text = "";
         string str = message;
         for (int i = 0; i < str.Length && !m_skip; i++)
@@ -123,7 +148,7 @@ public class TextReader : MonoBehaviour
             m_messageText.text += str[i];
             yield return new WaitForSeconds(m_talkSpeed);
         }
-        m_skip = false;
+        m_messageText.text = message;
         m_nowCor = null;
     }
 

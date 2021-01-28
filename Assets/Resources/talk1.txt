@@ -1,0 +1,4 @@
+character/0/2/false/AAAAAAa
+BBBBBBb
+back/0/false/CCCCCCCc
+character/1/1/true/あああああ

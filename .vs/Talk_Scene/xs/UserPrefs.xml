@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{C44E73A8-A9B4-B8ED-AA32-09D9664E5909}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/talk2.txt">
+    <Files>
+      <File FileName="Assets/Script/TextManager.cs" Line="25" Column="25" />
+      <File FileName="Assets/Resources/talk2.txt" Line="3" Column="28" />
+      <File FileName="Assets/Resources/talk1.txt" Line="4" Column="19" NotebookId="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Talk_Scene" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Resources" expanded="True">
+                <Node name="talk2.txt" selected="True" />
+              </Node>
+              <Node name="Script" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5003e59c-dc84-44a6-8716-6fa492d509cf" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/nittayoshihiro/unityproject/Talk_Scene/Assets/Script/event.cs" relfile="Assets/Script/event.cs" line="25" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
